@@ -32,7 +32,7 @@ const getDefaultSortOptions = () => {
   ];
 };
 
-export default function ProductTable({ cart, updateCart }) {
+export default function ProductTable({ cart, updateCart, total, updateTotal }) {
   let [products, setProducts] = useState([]);
 
   const [filterOptions, setFilterOptions] = useState(getDefaultFilterOptions());
@@ -72,10 +72,13 @@ export default function ProductTable({ cart, updateCart }) {
                     let newCart = cart.slice();
 
                     if (!newCart.includes(product)) {
+                      console.log(product);
                       product.quantity = 1;
                       newCart.push(product);
+                      updateTotal((total += product.price));
                     } else {
                       newCart.map((p) => {
+                        console.log(p);
                         if (p.id === product.id) {
                           p.quantity += 1;
                         }
